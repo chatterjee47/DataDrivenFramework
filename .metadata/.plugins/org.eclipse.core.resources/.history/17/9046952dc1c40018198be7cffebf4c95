@@ -1,0 +1,79 @@
+package browsersetup;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.Platform;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxBinary;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+public class Setup extends BaseClass {
+
+	private WebDriver driver = null;
+
+	public WebDriver setupBrowser(String browser, String environment, String clientName)
+			throws InterruptedException, MalformedURLException {
+		
+		if (browser.equalsIgnoreCase("Firefox")) {
+			System.setProperty("webdriver.gecko.driver", "D:\\Wipro\\datadriven\\drivers\\geckodriver.exe");
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			
+		} else if (browser.equalsIgnoreCase("chrome")) {
+			System.setProperty("webdriver.chrome.driver", "D:\\MasTekFramework\\MastelModules\\drivers\\chromedriver.exe");
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("start-maximized");
+			options.addArguments("disable-infobars");
+			options.addArguments("--disable-notifications");
+			HashMap<String, Object> prefs = new HashMap<String, Object>();
+			prefs.put("credentials_enable_service", false);
+			prefs.put("profile.password_manager_enabled", false);
+			options.setExperimentalOption("prefs", prefs);
+			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+			System.setProperty("webdriver.chrome.driver", driverPathChrome);
+
+			driver = new RemoteWebDriver(new URL("http://172.16.206.62:5566/wd/hub"), capabilities);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		} else if (browser.equalsIgnoreCase("Internet Explorer")) {
+			System.setProperty("webdriver.ie.driver", driverPathIE);
+
+			DesiredCapabilities dc = DesiredCapabilities.internetExplorer();
+			dc.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+
+			driver = new InternetExplorerDriver(dc);
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		}
+
+		switch (environment.toUpperCase()) {
+		case "TEST 1":
+			driver.navigate().to(baseurlEnvironmentOne);
+			break;
+		case "TEST 2":
+			driver.navigate().to(baseurlEnvironmentTwo);
+			break;
+		case "TEST 3":
+			driver.navigate().to(baseurlEnvironmentThree);
+			break;
+		case "MOBILE APP UAT1":
+			break;
+		case "MOBILE APP UAT2":
+			break;
+		default:
+			Assert.fail(environment + "dosen't exsists");
+		}
+		driver.manage().timeouts().pageLoadTimeout(300, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		return driver;
+	
+	}
+}

@@ -1,0 +1,48 @@
+package testscripts.map;
+
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import reporting.ListenerClass;
+import testdata.ConfigurationData;
+import verify.Verify;
+import browsersetup.BaseClass;
+import helpers.MAPFunctions;
+import pageobjects.map.MAPLoginPage;
+import pageobjects.map.MAPClientList;
+
+@Listeners(ListenerClass.class)
+public class MAPLogINScripts extends BaseClass {
+
+	@Test(retryAnalyzer = helpers.RetryMechanism.class, groups = { "Regression", "MAP", "LogIN" })
+//	@Test(retryAnalyzer = helpers.RetryMechanism.class, groups = { "Regression", "MAP", "LogIN" })
+	@Parameters({ "environment", "clientName" })
+	public void logInToMAPAppTC201(String environment, String clientName) throws InterruptedException {
+		MAPLoginPage MAPLoginPage = new MAPLoginPage(getAndroidDriver());
+		String userName = ConfigurationData.getUserDetails(environment, clientName, "Automation Username 1");
+		String password = ConfigurationData.getUserDetails(environment, clientName, "Automation Password 1");
+
+		MAPLoginPage.EnterLoginID(userName);
+		MAPLoginPage.EnterPassword(password);
+		MAPLoginPage.clickLogIn();
+		Thread.sleep(10000);
+
+		MAPLoginPage.SearchTerritory();
+
+		Thread.sleep(10000);
+		Thread.sleep(10000);
+		Thread.sleep(10000);
+		
+		MAPClientList MAPClientList = new MAPClientList(getAndroidDriver());
+		MAPClientList.clickHamburger();
+
+		MAPClientList.clickLogout();
+		System.out.println("Login Successful");
+		Thread.sleep(20000);
+		Thread.sleep(20000);
+
+	}
+}

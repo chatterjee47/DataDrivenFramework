@@ -24,7 +24,7 @@
     <div class="top-banner-root">
       <span class="top-banner-title-font">Test results</span>
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 1 failed test</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -38,7 +38,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" class="navigator-link" panel-name="suite-N11_Test_Suite">
-              <span class="suite-name border-passed">N11 Test Suite</span>
+              <span class="suite-name border-failed">N11 Test Suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -91,26 +91,35 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">2 methods,   2 passed</span>
+                    <span class="method-stats">2 methods, 1 failed,  1 skipped,  </span>
                   </li>
                   <li>
-                    <span class="method-list-title passed">Passed methods</span>
-                    <span class="show-or-hide-methods passed">
-                      <a href="#" panel-name="suite-N11_Test_Suite" class="hide-methods passed suite-N11_Test_Suite"> (hide)</a> <!-- hide-methods passed suite-N11_Test_Suite -->
-                      <a href="#" panel-name="suite-N11_Test_Suite" class="show-methods passed suite-N11_Test_Suite"> (show)</a> <!-- show-methods passed suite-N11_Test_Suite -->
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-N11_Test_Suite" class="hide-methods failed suite-N11_Test_Suite"> (hide)</a> <!-- hide-methods failed suite-N11_Test_Suite -->
+                      <a href="#" panel-name="suite-N11_Test_Suite" class="show-methods failed suite-N11_Test_Suite"> (show)</a> <!-- show-methods failed suite-N11_Test_Suite -->
                     </span>
-                    <div class="method-list-content passed suite-N11_Test_Suite">
+                    <div class="method-list-content failed suite-N11_Test_Suite">
                       <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-N11_Test_Suite" title="tests.LoginTests" hash-for-method="invalidLoginTest_EmptyUserEmptyPassword">invalidLoginTest_EmptyUserEmptyPassword</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
+                        <img width="3%" src="failed.png"/>
                         <a href="#" class="method navigator-link" panel-name="suite-N11_Test_Suite" title="tests.LoginTests" hash-for-method="invalidLoginTest_InvalidUserNameInvalidPassword">invalidLoginTest_InvalidUserNameInvalidPassword</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content passed suite-N11_Test_Suite -->
+                    </div> <!-- method-list-content failed suite-N11_Test_Suite -->
+                  </li>
+                  <li>
+                    <span class="method-list-title skipped">Skipped methods</span>
+                    <span class="show-or-hide-methods skipped">
+                      <a href="#" panel-name="suite-N11_Test_Suite" class="hide-methods skipped suite-N11_Test_Suite"> (hide)</a> <!-- hide-methods skipped suite-N11_Test_Suite -->
+                      <a href="#" panel-name="suite-N11_Test_Suite" class="show-methods skipped suite-N11_Test_Suite"> (show)</a> <!-- show-methods skipped suite-N11_Test_Suite -->
+                    </span>
+                    <div class="method-list-content skipped suite-N11_Test_Suite">
+                      <span>
+                        <img width="3%" src="skipped.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-N11_Test_Suite" title="tests.LoginTests" hash-for-method="invalidLoginTest_InvalidUserNameInvalidPassword">invalidLoginTest_InvalidUserNameInvalidPassword</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content skipped suite-N11_Test_Suite -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -122,32 +131,52 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-N11_Test_Suite" class="panel N11_Test_Suite">
-          <div class="suite-N11_Test_Suite-class-passed">
+          <div class="suite-N11_Test_Suite-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
+              <img src="failed.png"/>
               <span class="class-name">tests.LoginTests</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="invalidLoginTest_EmptyUserEmptyPassword">
-                  </a> <!-- invalidLoginTest_EmptyUserEmptyPassword -->
-                  <span class="method-name">invalidLoginTest_EmptyUserEmptyPassword</span>
-                  <em>
-(Invalid Login Scenario with empty username and password.)                  </em>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
                   <a name="invalidLoginTest_InvalidUserNameInvalidPassword">
                   </a> <!-- invalidLoginTest_InvalidUserNameInvalidPassword -->
                   <span class="method-name">invalidLoginTest_InvalidUserNameInvalidPassword</span>
+                  <div class="stack-trace">java.lang.IllegalArgumentException: Cannot find elements with a null id attribute.
+	at org.openqa.selenium.By.id(By.java:53)
+	at ObjectRepository_Pages.LoginPage.loginToN11(LoginPage.java:37)
+	at tests.LoginTests.invalidLoginTest_InvalidUserNameInvalidPassword(LoginTests.java:40)
+... Removed 25 stack frames
+</div> <!-- stack-trace -->
                   <em>
 (Invalid Login Scenario with wrong username and password.)                  </em>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-N11_Test_Suite-class-passed -->
+          </div> <!-- suite-N11_Test_Suite-class-failed -->
+          <div class="suite-N11_Test_Suite-class-skipped">
+            <div class="main-panel-header rounded-window-top">
+              <img src="skipped.png"/>
+              <span class="class-name">tests.LoginTests</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="invalidLoginTest_InvalidUserNameInvalidPassword">
+                  </a> <!-- invalidLoginTest_InvalidUserNameInvalidPassword -->
+                  <span class="method-name">invalidLoginTest_InvalidUserNameInvalidPassword</span>
+                  <div class="stack-trace">java.lang.IllegalArgumentException: Cannot find elements with a null id attribute.
+	at org.openqa.selenium.By.id(By.java:53)
+	at ObjectRepository_Pages.LoginPage.loginToN11(LoginPage.java:37)
+	at tests.LoginTests.invalidLoginTest_InvalidUserNameInvalidPassword(LoginTests.java:40)
+... Removed 25 stack frames
+</div> <!-- stack-trace -->
+                  <em>
+(Invalid Login Scenario with wrong username and password.)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-N11_Test_Suite-class-skipped -->
         </div> <!-- panel N11_Test_Suite -->
         <div panel-name="test-xml-N11_Test_Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
@@ -208,16 +237,16 @@ data.addRows(2);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'invalidLoginTest_InvalidUserNameInvalidPassword')
 data.setCell(0, 2, 'tests.LoginTests')
-data.setCell(0, 3, 33135);
+data.setCell(0, 3, 33866);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'invalidLoginTest_EmptyUserEmptyPassword')
+data.setCell(1, 1, 'invalidLoginTest_InvalidUserNameInvalidPassword')
 data.setCell(1, 2, 'tests.LoginTests')
-data.setCell(1, 3, 9065);
+data.setCell(1, 3, 14854);
 window.suiteTableData['N11_Test_Suite']= { tableData: data, tableDiv: 'times-div-N11_Test_Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 42 seconds</span>
+              <span class="suite-total-time">Total running time: 48 seconds</span>
               <div id="times-div-N11_Test_Suite">
               </div> <!-- times-div-N11_Test_Suite -->
             </div> <!-- times-div -->
@@ -250,19 +279,21 @@ return data;
               </div> <!-- configuration-test before -->
               <div class="configuration-class before">
                 <span class="method-name">setup</span>
-                <span class="method-start">2309 ms</span>
+                <span class="method-start">2999 ms</span>
               </div> <!-- configuration-class before -->
               <div class="test-method">
                 <span class="method-name">invalidLoginTest_InvalidUserNameInvalidPassword</span>
-                <span class="method-start">9488 ms</span>
+                <span class="method-start">14132 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
-                <span class="method-name">invalidLoginTest_EmptyUserEmptyPassword</span>
-                <span class="method-start">43188 ms</span>
+                <img src="failed.png">
+                </img>
+                <span class="method-name">invalidLoginTest_InvalidUserNameInvalidPassword</span>
+                <span class="method-start">49859 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-class after">
                 <span class="method-name">teardown</span>
-                <span class="method-start">52397 ms</span>
+                <span class="method-start">68207 ms</span>
               </div> <!-- configuration-class after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

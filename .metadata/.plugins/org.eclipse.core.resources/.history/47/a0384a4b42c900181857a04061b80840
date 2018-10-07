@@ -1,0 +1,18 @@
+package TestRunner;		
+
+import org.junit.runner.RunWith;
+
+import com.github.mkolisnyk.cucumber.runner.ExtendedCucumberOptions;
+
+import cucumber.api.CucumberOptions;		
+import cucumber.api.junit.Cucumber;		
+
+@RunWith(Cucumber.class)				
+@CucumberOptions(features="Features",glue={"StepDefinition"})
+//@ExtendedCucumberOptions(jsonReport = "target/cucumber.json",
+
+
+public class Runner 				
+{		
+
+}

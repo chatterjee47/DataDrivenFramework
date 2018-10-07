@@ -1,0 +1,56 @@
+package pages;
+
+import java.net.MalformedURLException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+
+import browsersetup.Setup;
+
+public class BasePage {
+    public WebDriver driver;
+    public WebDriverWait wait;
+    private String clientName;
+
+    //Constructor
+    public BasePage (WebDriver driver, WebDriverWait wait){
+        this.driver = driver;
+        this.wait = wait;
+    }
+
+    //Click Method
+    public void click (By elementLocation) {
+        driver.findElement(elementLocation).click();
+    }
+
+    //Write Text
+    public void writeText (By elementLocation, String text) {
+        driver.findElement(elementLocation).sendKeys(text);
+    }
+
+    //Read Text
+    public String readText (By elementLocation) {
+        return driver.findElement(elementLocation).getText();
+    }
+    
+    
+    @BeforeMethod(timeOut = 600000, alwaysRun=true)
+	@Parameters({ "browser"})
+	public void setup(String browser) throws InterruptedException, MalformedURLException 
+	{
+		this.setClientName(clientName);
+		if(clientName.equals("CAP"))
+		{
+			Setup setup = new Setup();
+			driver = setup.setupBrowser(browser);
+		}
+		
+	}
+    
+    public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}	
+}

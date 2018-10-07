@@ -1,6 +1,12 @@
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
-configDescList=org.eclipse.launchbar.core.descriptorType.default\:datadriven_TestNG.xml
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:MobileRunner,org.eclipse.launchbar.core.descriptorType.default\:VerifyingVINScanner,org.eclipse.launchbar.core.descriptorType.default\:DCMobileProject_testng.xml,org.eclipse.launchbar.core.descriptorType.default\:MyTest.feature,org.eclipse.launchbar.core.descriptorType.default\:CucumberTestng_testng.xml,org.eclipse.launchbar.core.descriptorType.default\:Runner,org.eclipse.launchbar.core.descriptorType.default\:CucumberFramework_testng.xml,org.eclipse.launchbar.core.descriptorType.default\:datadriven_TestNG.xml
 eclipse.preferences.version=1
+org.eclipse.launchbar.core.descriptorType.default\:CucumberFramework_testng.xml/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:CucumberFramework_testng.xml/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
+org.eclipse.launchbar.core.descriptorType.default\:CucumberTestng_testng.xml/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:DCMobileProject_testng.xml/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:Runner/activeLaunchMode=run
+org.eclipse.launchbar.core.descriptorType.default\:VerifyingVINScanner/activeLaunchMode=run
 org.eclipse.launchbar.core.descriptorType.default\:datadriven_TestNG.xml/activeLaunchMode=run
 org.eclipse.launchbar.core.descriptorType.default\:datadriven_TestNG.xml/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local

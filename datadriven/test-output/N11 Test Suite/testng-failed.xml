@@ -10,7 +10,6 @@
       <class name="tests.LoginTests">
         <methods>
           <include name="setupTestData"/>
-          <include name="invalidLoginTest_EmptyUserEmptyPassword"/>
           <include name="teardown"/>
           <include name="invalidLoginTest_InvalidUserNameInvalidPassword"/>
           <include name="setup"/>

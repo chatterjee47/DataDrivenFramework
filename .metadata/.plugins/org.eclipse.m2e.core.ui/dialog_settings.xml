@@ -56,12 +56,17 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
+			<item value="CucumberSelenium.CucumberTestng"/>
+			<item value="CucumberSelenium.CucumberFramework"/>
 			<item value="datadrivenproject.datadriven"/>
 		</list>
 		<list key="groupId">
+			<item value="CucumberSelenium"/>
 			<item value="datadrivenproject"/>
 		</list>
 		<list key="artifactId">
+			<item value="CucumberTestng"/>
+			<item value="CucumberFramework"/>
 			<item value="datadriven"/>
 		</list>
 		<list key="projectNameTemplate">

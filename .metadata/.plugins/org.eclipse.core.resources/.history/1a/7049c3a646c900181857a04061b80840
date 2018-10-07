@@ -1,0 +1,186 @@
+package com.automation.VINScanner;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.testng.SkipException;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import com.automation.testBase.TestBase;
+import com.automation.uiActions.VerifyingVINScannerPage;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
+
+
+
+public class VerifyingVINScanner extends TestBase{
+
+	public static final Logger log = Logger.getLogger(VerifyingVINScanner.class.getName());	
+	VerifyingVINScannerPage homepage;
+	ExtentReports extent;
+	ExtentTest logger;
+	
+	@FindBy(id="com.nowcom.dcmobile:id/tv_tick_sel_trim_list_item")
+	WebElement SelectItemList;
+
+	@BeforeSuite
+	public void beforesuite(){
+	extent = new ExtentReports("C:\\Users\\admin\\Desktop\\DBSAutomation\\AndroidDCMobile\\AndroidDCMobile\\DCMobileProject\\ExtentReports\\VerifyingVINScannerExtentReport.html" ,true);
+	extent
+	.addSystemInfo("FrameWork Used", "Page Object Module")
+    .addSystemInfo("Mobile APK Version", "5.2.9")
+    .addSystemInfo("Environment", "DEV2")
+    .addSystemInfo("Identity URL", "https://betaidentity2.dealercenter.net")
+    .addSystemInfo("Base URL", "https://betaservices2.dealercenter.net")
+    .addSystemInfo("User Name", "Amit Chatterjee");
+    extent.loadConfig(new File(System.getProperty("user.dir")+"\\extent-config.xml"));
+	}
+	
+	
+	@BeforeMethod
+	public void beforeMethod(Method method) throws InterruptedException{
+	test= extent.startTest((this.getClass().getSimpleName()+"::"+ method.getName()),method.getName());
+	test.assignAuthor("Amit Chatterjee");
+	test.assignCategory("SmokeReport----Production");
+	try {
+		init();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+    homepage = new VerifyingVINScannerPage(driver);
+	test.log(LogStatus.PASS,"Browser Launched successfully");
+	}
+	
+	@DataProvider(name="loginData")
+	public String[][] getTestData(){
+		String[][] testRecords = getData("TestData.xlsx", "VINNumber");
+		return testRecords;
+	}
+	
+	@Test(dataProvider="loginData")
+	public void verifyGeneralInformationBlock(String UserName, String Password, String VINNumber,String Mileage , String runMode) {
+		homepage = new VerifyingVINScannerPage(driver);
+		if(runMode.equalsIgnoreCase("N")){
+			throw new SkipException("user marked this record as no run");
+		}
+		try {
+			log.info("============= Starting verify VIN Scanner Functionality Test =============");
+			
+			homepage.EnterDataIntoGeneralInformation(UserName, Password);
+			
+			Thread.sleep(10000);
+			homepage.setVINNumber(VINNumber);
+			Thread.sleep(10000);
+			homepage.ClickOnScanVINButton();
+			
+			FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver);
+			wait.pollingEvery(250, TimeUnit.MILLISECONDS);
+			wait.withTimeout(2, TimeUnit.SECONDS);
+			
+
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			try {
+				if (driver.findElement(By.id("com.nowcom.dcmobile:id/tv_tick_sel_trim_list_item")).isDisplayed()) {
+					System.out.println("Item List Present");
+					homepage.setItemList();
+				} else {
+					System.out.println("Item List Not Present");
+				}
+			} catch (Exception e1) {
+				System.out.println("Next Button Not Present");
+				if (driver.findElement(By.id("com.nowcom.dcmobile:id/et_etxtdone")).isEnabled()) {
+					
+					System.out.println("Mileage textbox Present");
+					homepage.setMileage(Mileage);	
+					
+				} else {
+					System.out.println("Mileage textbox Not Present");
+				}
+				Thread.sleep(500);
+
+				if (driver.findElement(By.id("com.nowcom.dcmobile:id/bt_addvehicleDone")).isDisplayed()) {
+					System.out.println("Done button Present");
+					homepage.ClickOnDonebutton();
+				///	driver.findElement(By.id("com.nowcom.dcmobile:id/bt_addvehicleDone")).click();
+				} else {
+					System.out.println("Done button Not Present");
+				}
+			}
+			for (int i = 0; i <= 3; i++) {
+				System.out.println("Value Of I:" + i);
+			
+				try {
+					driver.findElement(By.id("com.nowcom.dcmobile:id/bt_selTrimNext"));
+					homepage.ClickOnNextbutton();
+				//	driver.findElement(By.id("com.nowcom.dcmobile:id/bt_selTrimNext")).click();
+				} catch (Exception e) {
+					System.out.println("Next Button Not Present");
+				
+					try {
+						if (driver.findElement(By.id("com.nowcom.dcmobile:id/et_etxtdone")).isEnabled()) {
+							System.out.println("Mileage textbox Present");
+							homepage.setMileage(Mileage);	
+						//	driver.findElement(By.id("com.nowcom.dcmobile:id/et_etxtdone")).sendKeys(Mileage);
+						}
+					} catch (Exception e1) {
+						System.out.println("Mileage textbox Not Present");
+					}
+					try {
+						if (driver.findElement(By.id("com.nowcom.dcmobile:id/bt_addvehicleDone")).isDisplayed()) {
+							System.out.println("Done button Present");
+							driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+							homepage.ClickOnDonebutton();
+						//	driver.findElement(By.id("com.nowcom.dcmobile:id/bt_addvehicleDone")).click();
+								
+							Thread.sleep(10000);
+							Thread.sleep(10000);
+						///	driver.findElement(By.id("com.nowcom.dcmobile:id/ll_addtoInventory")).click();
+							Thread.sleep(10000);
+							Thread.sleep(10000);
+							break;
+
+						}
+					}catch (Exception e2) {
+						System.out.println("Done button Not seen");
+					}
+				}
+			log.info("============= Finished verify VIN Scanner Functionality Test =============");
+		}} catch (Exception e) {
+			getScreenShot("verifyGeneralInformationBlock");
+		}
+	}
+
+	
+
+
+
+	@AfterMethod
+	public void tearDown() {
+        driver.quit();
+       
+       
+       test.log(LogStatus.PASS,"Browser closed successfully");
+       extent.endTest(test);
+	}
+	
+	@AfterSuite
+	public void aftersuite() {
+       extent.flush();
+       extent.close();
+	}
+}

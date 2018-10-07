@@ -1,0 +1,178 @@
+package com.automation.uiActions;
+
+import org.apache.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+
+public class VerifyingVINScannerPage {
+
+	
+	WebDriver driver;
+	public static final Logger log = Logger.getLogger(VerifyingVINScannerPage.class.getName());	
+
+	
+	
+	@FindBy(xpath="//android.widget.Button[@text='SIGN_UP']")
+	WebElement SignUpButton;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//////////////////////////////////////////
+	
+	@FindBy(id="com.nowcom.dcmobile:id/et_username")
+	WebElement UserNameTextBox;
+	
+	@FindBy(id="com.nowcom.dcmobile:id/et_password")
+	WebElement PasswordTextBox;
+	
+	@FindBy(id="com.nowcom.dcmobile:id/btn_login")
+	WebElement Loginbutton;
+	
+	
+	@FindBy(id="com.nowcom.dcmobile:id/tv_menu_icon")
+	WebElement MenuIcon;
+	
+	@FindBy(id="com.nowcom.dcmobile:id/tv_slidingmenu_vehicle")
+	WebElement VehicleTab;
+	
+	
+	
+	
+	
+	@FindBy(id="com.nowcom.dcmobile:id/iv_plus")
+	WebElement Plusbutton;
+	
+	@FindBy(id="com.nowcom.dcmobile:id/et_enterVIN")
+	WebElement VINNumberTextBox;
+	
+	@FindBy(xpath="//android.widget.EditText[@content-desc='my_text_fieldCD']")
+	WebElement EnterText;
+	
+	
+	@FindBy(id="com.nowcom.dcmobile:id/bn_buttonScan")
+	WebElement ScanVINButton;
+	
+	@FindBy(id="com.nowcom.dcmobile:id/tv_tick_sel_trim_list_item")
+	WebElement SelectItemList;
+	
+	@FindBy(id="com.nowcom.dcmobile:id/et_etxtdone")
+	WebElement MileageTextBox;
+	
+	@FindBy(id="com.nowcom.dcmobile:id/bt_addvehicleDone")
+	WebElement Donebutton;
+	
+	@FindBy(id="com.nowcom.dcmobile:id/bt_selTrimNext")
+	WebElement Nextbutton;
+	
+	public VerifyingVINScannerPage(WebDriver driver){
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	public void setUserName(String strUserName){
+		UserNameTextBox.sendKeys(strUserName);
+		log.info("Entering data into UserName TextBox");	
+	}
+	
+	public void setPassword(String strPassword){
+		PasswordTextBox.sendKeys(strPassword);
+		log.info("Entering data into Password TextBox");	
+	}
+	
+	public void clickOnLoginButton() throws InterruptedException{
+		Loginbutton.click();
+		Thread.sleep(10000);
+		log.info("Clicking on Login button");
+	}
+	
+	public void ClickOnPlusbutton() throws InterruptedException{
+		Plusbutton.click();
+		Thread.sleep(5000);
+		log.info("Clicking on Plus button");	
+	}
+
+	public void setVINNumber(String strVINNumber){
+		VINNumberTextBox.sendKeys(strVINNumber);
+		log.info("Entering data into VIN TextBox");	
+	}
+	
+	
+	public void EnterText(String strEnterText){
+		EnterText.sendKeys(strEnterText);
+		log.info("Entering data into TextBox");	
+	}
+	
+	
+	
+	
+	
+	public void ClickOnScanVINButton(){
+		ScanVINButton.click();
+		log.info("Clicking on ScanVIN Button");	
+	}
+	
+	public void setItemList(){
+		SelectItemList.click();
+		log.info("Selecting Item List which are displayed");	
+	}
+	
+	public void setMileage(String strMileage){
+		MileageTextBox.sendKeys(strMileage);
+		log.info("Entering data into Mileage TextBox");	
+	}
+	
+	public void ClickOnDonebutton(){
+		Donebutton.click();
+		log.info("Clicking on Done Button");	
+	}
+	
+	public void ClickOnNextbutton(){
+		Nextbutton.click();
+		log.info("Clicking on Next Button");	
+	}
+	
+	public void MenuIconbutton(){
+		MenuIcon.click();
+		log.info("Clicking on MenuIcon Button");	
+	}
+	
+	public void VehicleTab(){
+		VehicleTab.click();
+		log.info("Clicking on MenuIcon Button");	
+	}
+	
+	
+	public void EnterDataIntoGeneralInformation(String UserName,String Password){
+		try {
+			this.setUserName(UserName);
+			this.setPassword(Password);
+			this.clickOnLoginButton();
+			this.MenuIconbutton();
+			this.VehicleTab();
+			this.ClickOnPlusbutton();
+			
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+}

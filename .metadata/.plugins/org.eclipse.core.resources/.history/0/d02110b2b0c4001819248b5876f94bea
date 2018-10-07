@@ -1,0 +1,60 @@
+package testscripts.map;
+
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import ExcelFucntionality.ConfigurationData;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
+import pages.HomePage;
+import pages.LoginPage;
+import utils.excelutils.ExcelUtil;
+import utils.extentreports.ExtentTestManager;
+import utils.listeners.TestListener;
+
+
+@Listeners({ TestListener.class })
+@Epic("Regression Tests")
+@Feature("Login Tests")
+public class LoginPageTest extends BaseTest {
+
+    @BeforeTest
+    public void setupTestData () throws Exception {
+        System.out.println("************Setup Test Level Data**********");
+        ExcelUtil.setExcelFileSheet("LoginData");
+    }
+
+    @Test (priority = 0, description="Invalid Login Scenario with wrong username and password.")
+    @Severity(SeverityLevel.BLOCKER)
+    @Description("Test Description: Login test with wrong username and wrong password.")
+    @Story("Invalid username and password login test")
+    public void invalidLoginTest_InvalidUserNameInvalidPassword (String environment, String clientName ) throws Exception {
+       
+        ExtentTestManager.getTest().setDescription("Invalid Login Scenario with wrong username and password.");
+
+        HomePage homePage = new HomePage(driver,wait);
+        LoginPage loginPage = new LoginPage(driver,wait);
+
+        homePage.goToN11();
+		
+		String userName = ConfigurationData.getUserDetails(environment, clientName, "Automation Username 1");
+		String password = ConfigurationData.getUserDetails(environment, clientName, "Automation Password 1");
+
+		
+		homePage.EnterLoginID(userName);
+		homePage.EnterPassword(password);
+		homePage.clickLogIn();
+		Thread.sleep(10000);
+
+		Thread.sleep(20000);
+
+	}
+}

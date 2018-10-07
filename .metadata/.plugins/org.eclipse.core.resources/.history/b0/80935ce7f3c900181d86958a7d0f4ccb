@@ -1,0 +1,19 @@
+package TestRunner;
+
+import org.testng.annotations.Test;
+import cucumber.api.CucumberOptions;
+import cucumber.api.testng.AbstractTestNGCucumberTests;
+
+
+@CucumberOptions(
+		features="Features",
+        tags="@FunctionalTest",
+	//	glue={"StepDefinition","utility"},
+		glue={"StepDefinition"},
+		plugin = {"pretty", "html:target/cucumber"}
+		)
+
+@Test
+public class TestExecution extends AbstractTestNGCucumberTests{
+
+}

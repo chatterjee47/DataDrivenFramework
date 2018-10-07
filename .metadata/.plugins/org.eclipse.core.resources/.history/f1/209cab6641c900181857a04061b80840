@@ -1,0 +1,55 @@
+package StepDefinition;		
+
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;		
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import cucumber.api.java.en.Given;		
+import cucumber.api.java.en.Then;		
+import cucumber.api.java.en.When;		
+
+public class Steps {				
+
+    WebDriver driver;			
+    		
+    @Given("^Open the ChromeDriver and launch the application$")					
+    public void open_the_ChromeDriver_and_launch_the_application() throws Throwable							
+    {	
+
+
+                DesiredCapabilities capabilities = new DesiredCapabilities();
+				capabilities.setCapability("platformVersion", "7.0");
+				capabilities.setCapability("platformName", "Android");
+				capabilities.setCapability("deviceName", "6744b475");
+				capabilities.setCapability("appPackage", "io.selendroid.testapp");
+				capabilities.setCapability("appActivity", "io.selendroid.testapp.HomeScreenActivity");
+
+				driver = new RemoteWebDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+				Thread.sleep(1000);
+				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+				Thread.sleep(500);
+				System.out.println("Application Opened Successfully");	
+			}
+       
+    	
+
+    @When("^Enter the Username \"(.*)\" and Password \"(.*)\"$")			
+    public void enter_the_Username_and_Password(String username,String password) throws Throwable 							
+    {		
+       System.out.println("Entering Username");
+       driver.findElement(By.name("uid")).sendKeys(username);	
+       System.out.println("Entering Password");
+       driver.findElement(By.name("password")).sendKeys(password);					
+    }		
+
+    @Then("^Reset the credential$")					
+    public void Reset_the_credential() throws Throwable 							
+    {		
+       driver.findElement(By.name("btnReset")).click();					
+    }		
+}		

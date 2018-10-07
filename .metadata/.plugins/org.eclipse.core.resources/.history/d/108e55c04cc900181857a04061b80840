@@ -1,0 +1,124 @@
+package com.automation.VINScanner;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.testng.SkipException;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import com.automation.testBase.TestBase;
+import com.automation.uiActions.VerifyingVINScannerPage;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
+
+
+
+public class VerifyingVINScanner extends TestBase{
+
+	public static final Logger log = Logger.getLogger(VerifyingVINScanner.class.getName());	
+	VerifyingVINScannerPage homepage;
+	ExtentReports extent;
+	ExtentTest logger;
+	
+	@FindBy(id="com.nowcom.dcmobile:id/tv_tick_sel_trim_list_item")
+	WebElement SelectItemList;
+
+	@BeforeSuite
+	public void beforesuite(){
+	extent = new ExtentReports("C:\\Users\\admin\\Desktop\\DBSAutomation\\AndroidDCMobile\\AndroidDCMobile\\DCMobileProject\\ExtentReports\\VerifyingVINScannerExtentReport.html" ,true);
+	extent
+	.addSystemInfo("FrameWork Used", "Page Object Module")
+    .addSystemInfo("Mobile APK Version", "5.2.9")
+    .addSystemInfo("Environment", "DEV2")
+    .addSystemInfo("Identity URL", "https://betaidentity2.dealercenter.net")
+    .addSystemInfo("Base URL", "https://betaservices2.dealercenter.net")
+    .addSystemInfo("User Name", "Amit Chatterjee");
+    extent.loadConfig(new File(System.getProperty("user.dir")+"\\extent-config.xml"));
+	}
+	
+	
+	@BeforeMethod
+	public void beforeMethod(Method method) throws InterruptedException{
+	test= extent.startTest((this.getClass().getSimpleName()+"::"+ method.getName()),method.getName());
+	test.assignAuthor("Amit Chatterjee");
+	test.assignCategory("SmokeReport----Production");
+	try {
+		init();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+    homepage = new VerifyingVINScannerPage(driver);
+	test.log(LogStatus.PASS,"Browser Launched successfully");
+	}
+	
+	@DataProvider(name="loginData")
+	public String[][] getTestData(){
+		String[][] testRecords = getData("TestData.xlsx", "VINNumber");
+		return testRecords;
+	}
+	
+	@Test(dataProvider="loginData")
+	public void SignUpPage(String UserName, String FamilyName, String MailId,String PhoneNumber , String Password, String runMode) {
+		homepage = new VerifyingVINScannerPage(driver);
+		if(runMode.equalsIgnoreCase("N")){
+			throw new SkipException("user marked this record as no run");
+		}
+		try {
+			log.info("============= Starting with Enter Text Data =============");
+			
+			homepage.SignUpTab();
+			Thread.sleep(1000);
+			homepage.EnterName(UserName);
+			Thread.sleep(1000);
+			homepage.FamilyName(FamilyName);
+			Thread.sleep(1000);
+			homepage.MailId(MailId);
+			Thread.sleep(1000);
+			homepage.MobileNumber(PhoneNumber);
+			Thread.sleep(1000);
+			homepage.Password(Password);
+			Thread.sleep(1000);
+			homepage.CreateAccount();
+	//		homepage.EnterText(EnterText);
+			Thread.sleep(10000);
+			
+			log.info("============= Ending with Enter Text Data =============");
+		} catch (Exception e) {
+			getScreenShot("verifyGeneralInformationBlock");
+		}
+	}
+
+	
+
+
+
+	@AfterMethod
+	public void tearDown() {
+        driver.quit();
+       
+       
+       test.log(LogStatus.PASS,"Browser closed successfully");
+       extent.endTest(test);
+	}
+	
+	@AfterSuite
+	public void aftersuite() {
+       extent.flush();
+       extent.close();
+	}
+}

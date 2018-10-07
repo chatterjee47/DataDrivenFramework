@@ -1,0 +1,47 @@
+package StepDefinition;		
+
+import org.openqa.selenium.By;		
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import cucumber.api.java.en.Given;		
+import cucumber.api.java.en.Then;		
+import cucumber.api.java.en.When;		
+
+public class MobileStep {				
+
+    WebDriver driver;
+    public WebDriver AppiumDriver;
+    		
+        @Given("^Launch Quikr app$")						
+    	public void iLaunchQuikrApp() throws Throwable {
+    	    DesiredCapabilities capabilities = new DesiredCapabilities();
+    	    capabilities.setCapability("appium-version", "1.0");
+    	    capabilities.setCapability("platformName", "Android");
+    	    capabilities.setCapability("platformVersion", "5.1");
+    	    capabilities.setCapability("deviceName", "Nexus6");
+    	    capabilities.setCapability("app","/Users/nishant/Development/HelloAppium/app/quikr.apk");
+    	    AppiumDriver wd = new AppiumDriver(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
+    	    wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    	}
+
+       
+    }		
+
+    @When("^Enter the Username \"(.*)\" and Password \"(.*)\"$")			
+    public void enter_the_Username_and_Password(String username,String password) throws Throwable 							
+    {		
+       System.out.println("Entering Username");
+       driver.findElement(By.name("uid")).sendKeys(username);	
+       System.out.println("Entering Password");
+       driver.findElement(By.name("password")).sendKeys(password);					
+    }		
+
+    @Then("^Reset the credential$")					
+    public void Reset_the_credential() throws Throwable 							
+    {		
+       driver.findElement(By.name("btnReset")).click();	
+       driver.close();
+    }		
+}		

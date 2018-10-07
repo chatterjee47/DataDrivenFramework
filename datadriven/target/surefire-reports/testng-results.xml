@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Surefire suite" duration-ms="49557" started-at="2018-10-05T03:10:32Z" finished-at="2018-10-05T03:11:21Z">
+    <groups>
+    </groups>
+    <test name="Surefire test" duration-ms="49557" started-at="2018-10-05T03:10:32Z" finished-at="2018-10-05T03:11:21Z">
+      <class name="tests.LoginTests">
+        <test-method status="PASS" signature="setupTestData()[pri:0, instance:tests.LoginTests@1a407d53]" name="setupTestData" is-config="true" duration-ms="877" started-at="2018-10-05T08:40:32Z" finished-at="2018-10-05T08:40:33Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupTestData -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:tests.LoginTests@1a407d53]" name="setup" is-config="true" duration-ms="5085" started-at="2018-10-05T08:40:33Z" description="Class Level Setup!" finished-at="2018-10-05T08:40:38Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="invalidLoginTest_InvalidUserNameInvalidPassword()[pri:0, instance:tests.LoginTests@1a407d53]" name="invalidLoginTest_InvalidUserNameInvalidPassword" duration-ms="41825" started-at="2018-10-05T08:40:38Z" description="Invalid Login Scenario with wrong username and password." finished-at="2018-10-05T08:41:20Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- invalidLoginTest_InvalidUserNameInvalidPassword -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:tests.LoginTests@1a407d53]" name="teardown" is-config="true" duration-ms="1195" started-at="2018-10-05T08:41:20Z" description="Class Level Teardown!" finished-at="2018-10-05T08:41:21Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- tests.LoginTests -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>
